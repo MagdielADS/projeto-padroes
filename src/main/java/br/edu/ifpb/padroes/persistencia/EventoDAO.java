@@ -114,7 +114,7 @@ public class EventoDAO {
     
     public static Evento buscarEventoPorId(int id) throws SQLException {
         Evento eventoResult = null;
-        String sql = "select * from evento where id = ?";
+        String sql = "select * from evento where id = ? and status <> 4";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
@@ -161,7 +161,7 @@ public class EventoDAO {
     
     public static List<Evento> buscarEventos() throws SQLException {
         List<Evento> eventos = new ArrayList<>();
-        String sql = "select * from evento";
+        String sql = "select * from evento where status <> 4";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
@@ -267,7 +267,7 @@ public class EventoDAO {
     
     public static List<Evento> buscaEventosPorSala(Sala sala) throws SQLException{
         List<Evento> eventos = new ArrayList<>();
-        String sql = "select * from evento where id_sala = ?";
+        String sql = "select * from evento where id_sala ilike ? and status <> 4";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
@@ -310,6 +310,266 @@ public class EventoDAO {
         pst.close();
 
         return eventos;
+    }
+    
+    public static void removerSalaDoEvento(Evento evento) throws SQLException{
+        String sql = "update evento set id_sala = ? where id = ?";
+
+        connection = ConexaoLocal.getInstance().createConnection();
+        PreparedStatement pst;
+
+        pst = connection.prepareStatement(sql);
+
+        pst.setString(1, null);
+        pst.setInt(2, evento.getId());
+
+        pst.execute();
+        connection.close();
+        pst.close();
+    }
+    
+    public static List<Evento> buscaEventosPorStatus(StatusEvento status) throws SQLException {
+        List<Evento> eventos = new ArrayList<>();
+        String sql = "select * from evento where status = ?";
+
+        connection = ConexaoLocal.getInstance().createConnection();
+        PreparedStatement pst;
+
+        pst = connection.prepareStatement(sql);
+        
+        if (status == StatusEvento.PEDENTE_LOCAL) {
+            pst.setInt(1, 1);
+        } else if (status == StatusEvento.ALOCADO) {
+            pst.setInt(1, 2);
+        } else if (status == StatusEvento.REALIZADO) {
+            pst.setInt(1, 3);
+        } else if (status == StatusEvento.CANCELADO) {
+            pst.setInt(1, 4);
+        }
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            Evento evento = new Evento();
+            StatusEvento st = null;
+            //STAUS
+            //1 - PEDENTE_LOCAL, 2 - ALOCADO, 3 - REALIZADO, 4 - CANCELADO;
+
+            if (rs.getInt("status") == 1) {
+                st = StatusEvento.PEDENTE_LOCAL;
+            } else if (rs.getInt("status") == 2) {
+                st = StatusEvento.ALOCADO;
+            } else if (rs.getInt("status") == 3) {
+                st = StatusEvento.REALIZADO;
+            } else if (rs.getInt("status") == 4) {
+                st = StatusEvento.CANCELADO;
+            }
+
+            evento.setDescricao(rs.getString("descricao"));
+            evento.setDtFim(rs.getDate("dtFim"));
+            evento.setDtInicio(rs.getDate("dtInicio"));
+            evento.setId(rs.getInt("id"));
+            evento.setNome(rs.getString("nome"));
+            evento.setNomeResponsavel(rs.getString("nome_responsavel"));
+            evento.setNumeroRepeticoes(rs.getInt("nomero_repeticoes"));
+            evento.setSala(SalaDAO.buscarSalaPorIdentificacao(rs.getString("id_sala")));
+            evento.setStatus(st);
+
+            eventos.add(evento);
+        }
+
+        pst.execute();
+        connection.close();
+        pst.close();
+
+        return eventos;
+    }
+    
+    public static Evento buscarEventoPorNome(String nome) throws SQLException {
+        Evento eventoResult = null;
+        String sql = "select * from evento where nome ilike ? and status <> 4";
+
+        connection = ConexaoLocal.getInstance().createConnection();
+        PreparedStatement pst;
+
+        pst = connection.prepareStatement(sql);
+        pst.setString(1, nome);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            Evento evento = new Evento();
+            StatusEvento status = null;
+            //STAUS
+            //1 - PEDENTE_LOCAL, 2 - ALOCADO, 3 - REALIZADO, 4 - CANCELADO;
+
+            if (rs.getInt("status") == 1) {
+                status = StatusEvento.PEDENTE_LOCAL;
+            } else if (rs.getInt("status") == 2) {
+                status = StatusEvento.ALOCADO;
+            } else if (rs.getInt("status") == 3) {
+                status = StatusEvento.REALIZADO;
+            } else if (rs.getInt("status") == 4) {
+                status = StatusEvento.CANCELADO;
+            }
+
+            evento.setDescricao(rs.getString("descricao"));
+            evento.setDtFim(rs.getDate("dtFim"));
+            evento.setDtInicio(rs.getDate("dtInicio"));
+            evento.setId(rs.getInt("id"));
+            evento.setNome(rs.getString("nome"));
+            evento.setNomeResponsavel(rs.getString("nome_responsavel"));
+            evento.setNumeroRepeticoes(rs.getInt("nomero_repeticoes"));
+            evento.setSala(SalaDAO.buscarSalaPorIdentificacao(rs.getString("id_sala")));
+            evento.setStatus(status);
+
+            eventoResult = evento;
+        }
+
+        pst.execute();
+        connection.close();
+        pst.close();
+
+        return eventoResult;
+    }
+    
+    public static Evento buscarEventoPorDescricao(String descricao) throws SQLException {
+        Evento eventoResult = null;
+        String sql = "select * from evento where descricao ilike ? and status <> 4";
+
+        connection = ConexaoLocal.getInstance().createConnection();
+        PreparedStatement pst;
+
+        pst = connection.prepareStatement(sql);
+        pst.setString(1, descricao);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            Evento evento = new Evento();
+            StatusEvento status = null;
+            //STAUS
+            //1 - PEDENTE_LOCAL, 2 - ALOCADO, 3 - REALIZADO, 4 - CANCELADO;
+
+            if (rs.getInt("status") == 1) {
+                status = StatusEvento.PEDENTE_LOCAL;
+            } else if (rs.getInt("status") == 2) {
+                status = StatusEvento.ALOCADO;
+            } else if (rs.getInt("status") == 3) {
+                status = StatusEvento.REALIZADO;
+            } else if (rs.getInt("status") == 4) {
+                status = StatusEvento.CANCELADO;
+            }
+
+            evento.setDescricao(rs.getString("descricao"));
+            evento.setDtFim(rs.getDate("dtFim"));
+            evento.setDtInicio(rs.getDate("dtInicio"));
+            evento.setId(rs.getInt("id"));
+            evento.setNome(rs.getString("nome"));
+            evento.setNomeResponsavel(rs.getString("nome_responsavel"));
+            evento.setNumeroRepeticoes(rs.getInt("nomero_repeticoes"));
+            evento.setSala(SalaDAO.buscarSalaPorIdentificacao(rs.getString("id_sala")));
+            evento.setStatus(status);
+
+            eventoResult = evento;
+        }
+
+        pst.execute();
+        connection.close();
+        pst.close();
+
+        return eventoResult;
+    }
+    
+    public static Evento buscarEventoPorData(Date data) throws SQLException {
+        Evento eventoResult = null;
+        String sql = "select * from evento where dtInicio = ? and status <> 4";
+
+        connection = ConexaoLocal.getInstance().createConnection();
+        PreparedStatement pst;
+
+        pst = connection.prepareStatement(sql);
+        pst.setDate(1, data);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            Evento evento = new Evento();
+            StatusEvento status = null;
+            //STAUS
+            //1 - PEDENTE_LOCAL, 2 - ALOCADO, 3 - REALIZADO, 4 - CANCELADO;
+
+            if (rs.getInt("status") == 1) {
+                status = StatusEvento.PEDENTE_LOCAL;
+            } else if (rs.getInt("status") == 2) {
+                status = StatusEvento.ALOCADO;
+            } else if (rs.getInt("status") == 3) {
+                status = StatusEvento.REALIZADO;
+            } else if (rs.getInt("status") == 4) {
+                status = StatusEvento.CANCELADO;
+            }
+
+            evento.setDescricao(rs.getString("descricao"));
+            evento.setDtFim(rs.getDate("dtFim"));
+            evento.setDtInicio(rs.getDate("dtInicio"));
+            evento.setId(rs.getInt("id"));
+            evento.setNome(rs.getString("nome"));
+            evento.setNomeResponsavel(rs.getString("nome_responsavel"));
+            evento.setNumeroRepeticoes(rs.getInt("nomero_repeticoes"));
+            evento.setSala(SalaDAO.buscarSalaPorIdentificacao(rs.getString("id_sala")));
+            evento.setStatus(status);
+
+            eventoResult = evento;
+        }
+
+        pst.execute();
+        connection.close();
+        pst.close();
+
+        return eventoResult;
+    }
+    
+    public static Evento buscarEventoPorUsuario(String nomeUsuario) throws SQLException {
+        Evento eventoResult = null;
+        String sql = "select * from evento where nome_responsavel ilike ? and status <> 4";
+
+        connection = ConexaoLocal.getInstance().createConnection();
+        PreparedStatement pst;
+
+        pst = connection.prepareStatement(sql);
+        pst.setString(1, nomeUsuario);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            Evento evento = new Evento();
+            StatusEvento status = null;
+            //STAUS
+            //1 - PEDENTE_LOCAL, 2 - ALOCADO, 3 - REALIZADO, 4 - CANCELADO;
+
+            if (rs.getInt("status") == 1) {
+                status = StatusEvento.PEDENTE_LOCAL;
+            } else if (rs.getInt("status") == 2) {
+                status = StatusEvento.ALOCADO;
+            } else if (rs.getInt("status") == 3) {
+                status = StatusEvento.REALIZADO;
+            } else if (rs.getInt("status") == 4) {
+                status = StatusEvento.CANCELADO;
+            }
+
+            evento.setDescricao(rs.getString("descricao"));
+            evento.setDtFim(rs.getDate("dtFim"));
+            evento.setDtInicio(rs.getDate("dtInicio"));
+            evento.setId(rs.getInt("id"));
+            evento.setNome(rs.getString("nome"));
+            evento.setNomeResponsavel(rs.getString("nome_responsavel"));
+            evento.setNumeroRepeticoes(rs.getInt("nomero_repeticoes"));
+            evento.setSala(SalaDAO.buscarSalaPorIdentificacao(rs.getString("id_sala")));
+            evento.setStatus(status);
+
+            eventoResult = evento;
+        }
+
+        pst.execute();
+        connection.close();
+        pst.close();
+
+        return eventoResult;
     }
 }
 

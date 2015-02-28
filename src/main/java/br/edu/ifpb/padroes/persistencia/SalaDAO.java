@@ -62,7 +62,7 @@ public class SalaDAO {
 
     public static void atualizaSala(Sala sala) throws SQLException {
         String sql = "update sala set capacidade = ?, apelido = ?, tipo = ?"
-                + " where identificacao = ?";
+                + " where identificacao ilike ?";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
@@ -99,7 +99,7 @@ public class SalaDAO {
     }
 
     public static void deletaSala(Sala sala) throws SQLException {
-        String sql = "delete from sala where identificacao = ?";
+        String sql = "delete from sala where identificacao ilike ?";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
@@ -115,7 +115,7 @@ public class SalaDAO {
     
     public static Sala buscarSalaPorIdentificacao(String identificacao) throws SQLException {
         Sala salaResult = null;
-        String sql = "select * from sala where identificacao = ?";
+        String sql = "select * from sala where identificacao ilike ?";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
