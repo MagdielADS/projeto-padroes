@@ -12,9 +12,18 @@ import java.io.Serializable;
  * @author Magdiel Ildefonso
  */
 public class Usuario implements Serializable{
+    private String nome;
     private String login;
     private String senha;
-    
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getLogin() {
         return login;
     }

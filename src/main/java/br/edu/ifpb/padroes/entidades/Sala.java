@@ -8,7 +8,11 @@ package br.edu.ifpb.padroes.entidades;
 /**
  *
  * @author Magdiel Ildefonso
+ * 
+ * A classe Sala é uma abstração para a salas de aulas que serão utilizadas nos eventos
+ * 
  */
+
 public final class Sala{
     private final String identicacao;
     private final int capacidade;

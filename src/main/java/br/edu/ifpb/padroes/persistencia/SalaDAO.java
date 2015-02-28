@@ -24,7 +24,7 @@ public class SalaDAO {
 
     private static Connection connection;
 
-    public void persisteSala(Sala sala) throws SQLException {
+    public static void persisteSala(Sala sala) throws SQLException {
         String sql = "insert into sala(identificacao, capacidade, apelido, tipo) values(?,?,?,?)";
 
         connection = ConexaoLocal.getInstance().createConnection();
@@ -60,7 +60,7 @@ public class SalaDAO {
         pst.close();
     }
 
-    public void atualizaSala(Sala sala) throws SQLException {
+    public static void atualizaSala(Sala sala) throws SQLException {
         String sql = "update sala set capacidade = ?, apelido = ?, tipo = ?"
                 + " where identificacao = ?";
 
@@ -98,7 +98,7 @@ public class SalaDAO {
         pst.close();
     }
 
-    public void deletaSala(Sala sala) throws SQLException {
+    public static void deletaSala(Sala sala) throws SQLException {
         String sql = "delete from sala where identificacao = ?";
 
         connection = ConexaoLocal.getInstance().createConnection();
@@ -113,8 +113,8 @@ public class SalaDAO {
         pst.close();
     }
     
-    public Sala buscarSalaPorIdentificacao(String identificacao) throws SQLException {
-        Sala sala = null;
+    public static Sala buscarSalaPorIdentificacao(String identificacao) throws SQLException {
+        Sala salaResult = null;
         String sql = "select * from sala where identificacao = ?";
 
         connection = ConexaoLocal.getInstance().createConnection();
@@ -148,10 +148,12 @@ public class SalaDAO {
             SalaBuilder sBuilder = new SalaBuilder(rs.getString("identificacao"), rs.getInt("capacidade"), tipo);
             
             if(rs.getString("apelido") != null || rs.getString("apelido") != ""){
-                sala = new SalaBuilder(rs.getString("identificacao"), rs.getInt("capacidade"), tipo)
+                Sala sala = new SalaBuilder(rs.getString("identificacao"), rs.getInt("capacidade"), tipo)
                         .comApelido(rs.getString("apelido")).construa();
+                salaResult = sala;
             }else{
-                sala = new SalaBuilder(rs.getString("identificacao"), rs.getInt("capacidade"), tipo).construa();
+                Sala sala = new SalaBuilder(rs.getString("identificacao"), rs.getInt("capacidade"), tipo).construa();
+                salaResult = sala;
             }
         }
 
@@ -159,10 +161,10 @@ public class SalaDAO {
         connection.close();
         pst.close();
         
-        return sala;
+        return salaResult;
     }
     
-    public List<Sala> buscarSalas() throws SQLException {
+    public static List<Sala> buscarSalas() throws SQLException {
         List<Sala> salas = new ArrayList<>();
         String sql = "select * from sala";
 

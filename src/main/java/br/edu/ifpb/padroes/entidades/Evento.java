@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Magdiel Ildefonso
  */
 public class Evento{
+    private int id;
     private String nome;
     private String descricao;
     private Date dtInicio;
@@ -19,6 +20,15 @@ public class Evento{
     private String nomeResponsavel;
     private int numeroRepeticoes;
     private StatusEvento status;
+    private Sala sala;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -75,6 +85,14 @@ public class Evento{
     public void setStatus(StatusEvento status) {
         this.status = status;
     }
-    
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
     
 }
