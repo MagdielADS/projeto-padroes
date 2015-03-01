@@ -12,26 +12,65 @@ import java.util.List;
 
 /**
  *
+ * @author Magdiel Ildefonso A classe FachadaSala é a parte do padrão Facade,
+ * criando uma abstração entre a camada de aplicação e a camada de persistência
+ */
+/**
+ * * A classe FachadaSala é a parte do padrão Facade, criando uma abstração
+ * entre a camada de aplicação e a camada de persistência
+ *
  * @author Magdiel Ildefonso
  */
 public class FachadaSala {
-    public void cadastrar(Sala sala) throws SQLException{
+
+    /**
+     * Cadastra a sala
+     *
+     * @param sala abstração para a sala que será cadastrado
+     * @throws java.sql.SQLException
+     */
+    public void cadastrar(Sala sala) throws SQLException {
         SalaDAO.persisteSala(sala);
     }
-    
-    public void atualizar(Sala sala) throws SQLException{
+
+    /**
+     * Atualiza a sala informada
+     *
+     * @param sala
+     * @throws java.sql.SQLException
+     */
+    public void atualizar(Sala sala) throws SQLException {
         SalaDAO.atualizaSala(sala);
     }
-    
-    public void deletar(Sala sala) throws SQLException{
+
+    /**
+     * Deleta a sala
+     *
+     * @param sala
+     * @throws java.sql.SQLException
+     */
+    public void deletar(Sala sala) throws SQLException {
         SalaDAO.deletaSala(sala);
     }
-    
-    public List<Sala> listar() throws SQLException{
+
+    /**
+     * Retorna a lista com todas as salas cadastradas
+     *
+     * @return List lista todas as salas que estiverem cadastradas no banco
+     * @throws java.sql.SQLException
+     */
+    public List<Sala> listar() throws SQLException {
         return SalaDAO.buscarSalas();
     }
-    
-    public Sala listarPorID(String id) throws SQLException{
+
+    /**
+     * Retorna a sala com o id informado
+     *
+     * @param id
+     * @return
+     * @throws java.sql.SQLException
+     */
+    public Sala listarPorID(String id) throws SQLException {
         return SalaDAO.buscarSalaPorIdentificacao(id);
     }
 }

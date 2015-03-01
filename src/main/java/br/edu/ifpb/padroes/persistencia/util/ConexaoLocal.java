@@ -13,6 +13,13 @@ import java.util.logging.Logger;
 /**
  *
  * @author Magdiel Ildefonso
+ *
+ */
+/**
+ * A classe de ConexaoLocal é um singleton de conexão com o banco, a mesma
+ * possibilita assim um única instânica de acesso ao banco
+ *
+ * @author Magdiel Ildefonso
  */
 public class ConexaoLocal {
 
@@ -21,11 +28,19 @@ public class ConexaoLocal {
     private final Properties prop;
 
     private ConexaoLocal() {
+        /**
+         * conexaolocal.properties é o arquivo com os parâmetros de conexão ao
+         * banco
+         */
         file = new File("conexaolocal.properties");
-        //file = new File("conexaoremota.properties");
         prop = new Properties();
     }
 
+    /**
+     * Retorna a instância de ConexaoLocal
+     *
+     * @return
+     */
     public static ConexaoLocal getInstance() {
         if (instancia == null) {
             return instancia = new ConexaoLocal();
@@ -33,8 +48,13 @@ public class ConexaoLocal {
         return instancia;
     }
 
+    /**
+     * Cria a conexão com o banco a partir do arquivo de propriedades
+     *
+     * @return
+     */
     public Connection createConnection() {
-        try {            
+        try {
             prop.load(new FileInputStream(file));
             Class.forName(prop.getProperty("driver"));
             return DriverManager.getConnection(prop.getProperty("path"), prop.getProperty("login"), prop.getProperty("senha"));
@@ -42,7 +62,5 @@ public class ConexaoLocal {
             Logger.getLogger(ConexaoLocal.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        
-        
-    }        
+    }
 }

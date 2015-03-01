@@ -10,8 +10,18 @@ import java.io.Serializable;
 /**
  *
  * @author Magdiel Ildefonso
+ *
  */
-public class Usuario implements Serializable{
+/**
+ * Abstração para usuário que acessao sistema
+ *
+ * @author Magdiel Ildefonso
+ */
+public class Usuario implements Serializable {
+
+    /**
+     * Nome do usuário
+     */
     private String nome;
     private String login;
     private String senha;
@@ -39,6 +49,5 @@ public class Usuario implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
 }

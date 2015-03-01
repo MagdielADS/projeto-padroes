@@ -23,7 +23,8 @@ create table evento(
  nome_responsavel varchar(80),
  numero_repeticoes int,
  status int,
- id_sala varchar(20),
+ id_sala varchar(20), 
+ qtde_participantes int,
  primary key(id),
  foreign key(id_sala) references sala(identificacao)
 )

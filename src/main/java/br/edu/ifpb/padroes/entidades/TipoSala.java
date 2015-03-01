@@ -9,6 +9,10 @@ package br.edu.ifpb.padroes.entidades;
  *
  * @author Magdiel Ildefonso
  */
+/**
+ * Enum com os tipos de sala
+ */
 public enum TipoSala {
+
     AULA_NORMAL, AULA_INTELIGENTE, LABORATORIO, CONFERENCIA, VIDEO_CONFERENCIA;
 }

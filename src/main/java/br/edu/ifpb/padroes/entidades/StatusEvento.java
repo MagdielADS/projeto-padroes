@@ -9,6 +9,11 @@ package br.edu.ifpb.padroes.entidades;
  *
  * @author Magdiel Ildefonso
  */
+/**
+ *
+ * Enum com status do evento
+ */
 public enum StatusEvento {
+
     PEDENTE_LOCAL, ALOCADO, REALIZADO, CANCELADO;
 }

@@ -10,16 +10,36 @@ import java.util.Date;
 /**
  *
  * @author Magdiel Ildefonso
+ *
  */
-public class Evento{
+/**
+ * A classe Evento é uma abstração para os eventos criados no sistema
+ */
+public class Evento {
+
+    /**
+     * O id do evento será gerado automaticamente no banco de dados
+     */
     private int id;
     private String nome;
     private String descricao;
     private Date dtInicio;
     private Date dtFim;
     private String nomeResponsavel;
+    /**
+     * O numero de repetições define quantas vezes o evento deve sr repetido na
+     * semana
+     */
     private int numeroRepeticoes;
+    /**
+     * Status: PENDENTE DE LOCAL, ALOCADO, REALIZADO E CANCELADO
+     */
     private StatusEvento status;
+    /**
+     * A quantidade de participantes é necessário para assim serem apresentadas
+     * as salas que satisfazem os requisitos de evento
+     */
+    private int qtde_participantes;
     private Sala sala;
 
     public int getId() {
@@ -86,6 +106,14 @@ public class Evento{
         this.status = status;
     }
 
+    public int getQtde_participantes() {
+        return qtde_participantes;
+    }
+
+    public void setQtde_participantes(int qtde_participantes) {
+        this.qtde_participantes = qtde_participantes;
+    }
+
     public Sala getSala() {
         return sala;
     }
@@ -94,5 +122,8 @@ public class Evento{
         this.sala = sala;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Evento{" + "id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", dtInicio=" + dtInicio + ", dtFim=" + dtFim + ", nomeResponsavel=" + nomeResponsavel + ", numeroRepeticoes=" + numeroRepeticoes + ", status=" + status + ", qtde_participantes=" + qtde_participantes + ", sala=" + sala + '}';
+    }
 }
