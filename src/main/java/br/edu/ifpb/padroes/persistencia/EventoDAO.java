@@ -137,8 +137,11 @@ public class EventoDAO {
         pst.close();
     }
 
-    /*
+    /**
      *Busca eventos por id
+     * @param id
+     * @return 
+     * @throws java.sql.SQLException 
      */
     public static Evento buscarEventoPorId(int id) throws SQLException {
         Evento eventoResult = null;

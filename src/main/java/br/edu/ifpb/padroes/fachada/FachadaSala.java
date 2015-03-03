@@ -5,6 +5,7 @@
  */
 package br.edu.ifpb.padroes.fachada;
 
+import br.edu.ifpb.padroes.entidades.Evento;
 import br.edu.ifpb.padroes.entidades.Sala;
 import br.edu.ifpb.padroes.persistencia.SalaDAO;
 import java.sql.SQLException;
@@ -12,8 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author Magdiel Ildefonso A classe FachadaSala é a parte do padrão Facade,
- * criando uma abstração entre a camada de aplicação e a camada de persistência
+ * @author Magdiel Ildefonso 
  */
 /**
  * * A classe FachadaSala é a parte do padrão Facade, criando uma abstração
@@ -72,5 +72,9 @@ public class FachadaSala {
      */
     public Sala listarPorID(String id) throws SQLException {
         return SalaDAO.buscarSalaPorIdentificacao(id);
+    }
+    
+    public List<Sala> listarSalasQueSatisfazem(Evento evento) throws SQLException{
+        return SalaDAO.buscarSalasQueSatisfacamEvento(evento);
     }
 }

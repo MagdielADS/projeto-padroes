@@ -25,8 +25,8 @@ public class LoaderRequisitos {
         FachadaSala fs = new FachadaSala();
         
         try {
-            Evento e = fe.listarPorId(1);
-            Sala s = fs.listarPorID("BI4");
+            //Evento e = fe.listarPorId(1);
+            //Sala s = fs.listarPorID("BI4");
             
             //fe.alocarSalaEvento(s, e);
             //fe.desalocarEvento(e);
@@ -57,9 +57,14 @@ public class LoaderRequisitos {
             System.out.println("RESPONSAVEL");
             System.out.println(fe.buscarEventoPorResponsavel("Diogo"));
             
+            //BUSCAR SALAS QUE SATISFAZEM
+            Evento eventoS = fe.listarPorId(2);
+            System.out.println("SATISFAZ O EVENTO");
+            for (Sala sala1 : fs.listarSalasQueSatisfazem(eventoS)) {
+                System.out.println(sala1);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(LoaderRequisitos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }    
 }

@@ -24,8 +24,10 @@ public class SalaDAO {
 
     private static Connection connection;
 
-    /*
+    /**
      *Persiste a sala
+     * @param sala
+     * @throws java.sql.SQLException
      */
     public static void persisteSala(Sala sala) throws SQLException {
         String sql = "insert into sala(identificacao, capacidade, apelido, tipo) values(?,?,?,?)";
@@ -61,8 +63,10 @@ public class SalaDAO {
         pst.close();
     }
 
-    /*
+    /**
      *Atualiza a sala
+     * @param sala
+     * @throws java.sql.SQLException
      */
     public static void atualizaSala(Sala sala) throws SQLException {
         String sql = "update sala set capacidade = ?, apelido = ?, tipo = ?"
@@ -101,8 +105,10 @@ public class SalaDAO {
         pst.close();
     }
 
-    /*
+    /**
      *Deleta a sala
+     * @param sala
+     * @throws java.sql.SQLException
      */
     public static void deletaSala(Sala sala) throws SQLException {
         String sql = "delete from sala where identificacao ilike ?";
@@ -119,8 +125,11 @@ public class SalaDAO {
         pst.close();
     }
 
-    /*
+    /**
      *Busca a sala pela sua identificação
+     * @param identificacao
+     * @return 
+     * @throws java.sql.SQLException
      */
     public static Sala buscarSalaPorIdentificacao(String identificacao) throws SQLException {
         Sala sala = new Sala();
@@ -170,8 +179,10 @@ public class SalaDAO {
         return sala;
     }
 
-    /*
+    /**
      *Busca todas as salas cadastrdas
+     * @return 
+     * @throws java.sql.SQLException
      */
     public static List<Sala> buscarSalas() throws SQLException {
         List<Sala> salas = new ArrayList<>();
@@ -223,19 +234,25 @@ public class SalaDAO {
         return salas;
     }
 
-    /*
+    /**
      *Busca todas as salas que satisfaçam o evento, ou seja não estajam alocadas a outro evento e possuam capacidade 
      *maior ou igual ao número de participantes do evento
+     * @param evento
+     * @return 
+     * @throws java.sql.SQLException 
      */
     public static List<Sala> buscarSalasQueSatisfacamEvento(Evento evento) throws SQLException {
         List<Sala> salas = new ArrayList<>();
-        String sql = "select * from sala s join evento e on s.identificacao <> e.id_sala where s.capacidade >= ? ";
+        String sql = "select * from sala where identificacao not in "
+                + "(select id_sala from evento where id_sala = identificacao and dtInicio = ?) "
+                + "and capacidade >= ?";
 
         connection = ConexaoLocal.getInstance().createConnection();
         PreparedStatement pst;
 
         pst = connection.prepareStatement(sql);
-        pst.setInt(1, evento.getQtde_participantes());
+        pst.setDate(1, new java.sql.Date(evento.getDtInicio().getTime()));
+        pst.setInt(2, evento.getQtde_participantes());
         ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
