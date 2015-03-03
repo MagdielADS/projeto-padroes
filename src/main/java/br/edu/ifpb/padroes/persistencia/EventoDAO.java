@@ -10,7 +10,7 @@ import br.edu.ifpb.padroes.entidades.Sala;
 import br.edu.ifpb.padroes.entidades.StatusEvento;
 import br.edu.ifpb.padroes.persistencia.util.ConexaoLocal;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -90,8 +90,8 @@ public class EventoDAO {
 
         pst.setString(1, evento.getNome());
         pst.setString(2, evento.getDescricao());
-        pst.setDate(3, (Date) evento.getDtInicio());
-        pst.setDate(4, (Date) evento.getDtFim());
+        pst.setDate(3, new java.sql.Date(evento.getDtInicio().getTime()));
+        pst.setDate(4, new java.sql.Date(evento.getDtFim().getTime()));
         pst.setString(5, evento.getNomeResponsavel());
         pst.setInt(6, evento.getNumeroRepeticoes());
 
@@ -304,7 +304,7 @@ public class EventoDAO {
 
         pst = connection.prepareStatement(sql);
         pst.setString(1, sala.getIdenticacao());
-        pst.setDate(2, (Date) evento.getDtInicio());
+        pst.setDate(2, new java.sql.Date(evento.getDtInicio().getTime()));
         ResultSet rs = pst.executeQuery();
 
         if (rs.next()) {
@@ -589,7 +589,7 @@ public class EventoDAO {
         PreparedStatement pst;
 
         pst = connection.prepareStatement(sql);
-        pst.setDate(1, data);
+        pst.setDate(1, new java.sql.Date(data.getTime()));
         ResultSet rs = pst.executeQuery();
 
         if (rs.next()) {

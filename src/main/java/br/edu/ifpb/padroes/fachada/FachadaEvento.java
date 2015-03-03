@@ -10,6 +10,7 @@ import br.edu.ifpb.padroes.entidades.Sala;
 import br.edu.ifpb.padroes.entidades.StatusEvento;
 import br.edu.ifpb.padroes.persistencia.EventoDAO;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -127,5 +128,55 @@ public class FachadaEvento {
         } else {
             EventoDAO.alteraStatus(StatusEvento.CANCELADO, evento);
         }
+    }
+    
+    /**
+     * Busca os eventos filtrando pelo status
+     * @param status
+     * @return
+     * @throws SQLException 
+     */
+    public List<Evento> buscarEventosPorStatus(StatusEvento status) throws SQLException{
+        return EventoDAO.buscaEventosPorStatus(status);
+    }
+    
+    /**
+     * Busca o evento pelo nome
+     * @param nome
+     * @return
+     * @throws SQLException 
+     */
+    public Evento buscarEventoPorNome(String nome) throws SQLException{
+        return EventoDAO.buscarEventoPorNome(nome);
+    }
+    
+    /**
+     * Busca o evento pela descrição
+     * @param descricao
+     * @return
+     * @throws SQLException 
+     */
+    public Evento buscarEventoPorDescricao(String descricao) throws SQLException{
+        return EventoDAO.buscarEventoPorDescricao(descricao);
+    }
+    
+    /**
+     * Busca o evento pela data de realização
+     * @param data
+     * @return
+     * @throws SQLException 
+     */
+    public Evento buscarEventoPorData(Date data) throws SQLException{
+        return EventoDAO.buscarEventoPorData(data);
+    }
+    
+    /**
+     * Busca o evento pelo nome de seu responsavel
+     * @param nomeResponsavel
+     * @return
+     * @throws SQLException 
+     */
+    public Evento buscarEventoPorResponsavel(String nomeResponsavel) throws SQLException{
+        return EventoDAO.buscarEventoPorUsuario(nomeResponsavel);
     }
 }

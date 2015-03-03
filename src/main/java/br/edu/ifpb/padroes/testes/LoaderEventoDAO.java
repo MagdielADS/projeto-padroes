@@ -18,42 +18,46 @@ import java.util.logging.Logger;
  * @author Magdiel Ildefonso
  */
 public class LoaderEventoDAO {
+
     public static void main(String[] args) throws SQLException {
         FachadaEvento fachada = new FachadaEvento();
-        
+
         //CADASTRAR
-        Evento e = new Evento();
-        e.setDescricao("Corrida de pessoas");
-        e.setDtFim(new Date());
-        e.setDtInicio(new Date());
-        e.setNome("Corrida de pessoas normais");
-        e.setNomeResponsavel("Sayanne de Francisco da Loja de Celular, Francell");
-        e.setStatus(StatusEvento.PEDENTE_LOCAL);
-        e.setDtInicio(new Date());
-        e.setDtFim(new Date());
-        e.setNumeroRepeticoes(10);
-        e.setQtde_participantes(45);
-        
         try {
-           fachada.cadastrar(e);
+            Evento e = new Evento();
+            e.setDescricao("Competição de prgramação entre equipes");
+            e.setDtFim(new Date());
+            e.setDtInicio(new Date());
+            e.setNome("Olimpíadas de programação");
+            e.setNomeResponsavel("Diogo");
+            e.setStatus(StatusEvento.PEDENTE_LOCAL);
+            e.setNumeroRepeticoes(1);
+            e.setQtde_participantes(30);
+            fachada.cadastrar(e);
+
+            e.setDescricao("Primeira aula do período, apresentação do curso aos feras");
+            e.setDtFim(new Date());
+            e.setDtInicio(new Date());
+            e.setNome("Apresentação do curso");
+            e.setNomeResponsavel("Fábio");
+            e.setStatus(StatusEvento.PEDENTE_LOCAL);
+            e.setNumeroRepeticoes(1);
+            e.setQtde_participantes(60);
+            fachada.cadastrar(e);
         } catch (SQLException ex) {
             Logger.getLogger(LoaderEventoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATUALIZAR
-        //Evento e2 = fachada.listarPorId(1);
-        
+        //Evento e2 = fachada.listarPorId(5);
+
         //e2.setNomeResponsavel("José da Silva Nobrega");
-        //e2.setNome("Corrida de Jumento");
-        
+        //e2.setNome("POP");
         //fachada.atualizar(e2);
-        
         //DELETAR
         //fachada.deletar(e2);
-        
         //LISTAR TODOS OS EVENTOS
         for (Evento ev : fachada.listar()) {
             System.out.println(ev);
         }
-        
     }
 }

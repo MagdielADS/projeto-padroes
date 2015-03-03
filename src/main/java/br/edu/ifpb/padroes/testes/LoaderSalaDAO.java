@@ -22,14 +22,20 @@ public class LoaderSalaDAO {
         try {
             //CADASTRO - OK
             Sala sala = new Sala();
-            //sala.setApelido("Sala da tv");
+            sala.setApelido("Sala da tv");
             sala.setCapacidade(40);
             sala.setIdenticacao("Bloco de Informatica", "4");
             sala.setTipoSala(TipoSala.AULA_NORMAL);
-            
             fachada.cadastrar(sala);
+            
+            sala.setApelido("Mini-auditório");
+            sala.setCapacidade(60);
+            sala.setIdenticacao("Bloco de Informatica", "1");
+            sala.setTipoSala(TipoSala.CONFERENCIA);
+            fachada.cadastrar(sala);
+            
             //BUSCA POR ID - OK
-            Sala sala2 = fachada.listarPorID("CdI2");
+            Sala sala2 = fachada.listarPorID("BI4");
             //ATUALIZAR
             //sala2.setApelido("Sala de aula");
             //sala2.setCapacidade(10);
