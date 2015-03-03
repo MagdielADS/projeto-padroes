@@ -58,7 +58,7 @@ public class FachadaEvento {
     /**
      * Lista todos os eventos que não estão com status Cancelado
      *
-     * @return List como os eventos cadastrado que não estão com o status
+     * @return Lista como os eventos cadastrado que não estão com o status
      * cancelado
      * @throws SQLException
      */
@@ -133,7 +133,7 @@ public class FachadaEvento {
     /**
      * Busca os eventos filtrando pelo status
      * @param status
-     * @return
+     * @return Lista dos eventos com o status informado
      * @throws SQLException 
      */
     public List<Evento> buscarEventosPorStatus(StatusEvento status) throws SQLException{
@@ -143,7 +143,7 @@ public class FachadaEvento {
     /**
      * Busca o evento pelo nome
      * @param nome
-     * @return
+     * @return Evento com o nome informado
      * @throws SQLException 
      */
     public Evento buscarEventoPorNome(String nome) throws SQLException{
@@ -153,7 +153,7 @@ public class FachadaEvento {
     /**
      * Busca o evento pela descrição
      * @param descricao
-     * @return
+     * @return Evento com a descrição informada
      * @throws SQLException 
      */
     public Evento buscarEventoPorDescricao(String descricao) throws SQLException{
@@ -163,7 +163,7 @@ public class FachadaEvento {
     /**
      * Busca o evento pela data de realização
      * @param data
-     * @return
+     * @return Evento com a data informada
      * @throws SQLException 
      */
     public Evento buscarEventoPorData(Date data) throws SQLException{
@@ -173,7 +173,7 @@ public class FachadaEvento {
     /**
      * Busca o evento pelo nome de seu responsavel
      * @param nomeResponsavel
-     * @return
+     * @return Evento com o nome de responsável informado
      * @throws SQLException 
      */
     public Evento buscarEventoPorResponsavel(String nomeResponsavel) throws SQLException{

@@ -56,7 +56,7 @@ public class FachadaSala {
     /**
      * Retorna a lista com todas as salas cadastradas
      *
-     * @return List lista todas as salas que estiverem cadastradas no banco
+     * @return Lista com todas as salas que estiverem cadastradas no banco
      * @throws java.sql.SQLException
      */
     public List<Sala> listar() throws SQLException {
@@ -67,13 +67,20 @@ public class FachadaSala {
      * Retorna a sala com o id informado
      *
      * @param id
-     * @return
+     * @return Sala com o id informado
      * @throws java.sql.SQLException
      */
     public Sala listarPorID(String id) throws SQLException {
         return SalaDAO.buscarSalaPorIdentificacao(id);
     }
     
+    /**
+     * Lista as salas qu satisfazem os requisitos do evento, não estejam alocadas a outro evento na mesma data 
+     * e possuam capacidade igual ou maior do que a quantidade de participantes do evento
+     * @param evento
+     * @return Lista de salas que satisfazem aos requisitos do evento
+     * @throws SQLException 
+     */
     public List<Sala> listarSalasQueSatisfazem(Evento evento) throws SQLException{
         return SalaDAO.buscarSalasQueSatisfacamEvento(evento);
     }

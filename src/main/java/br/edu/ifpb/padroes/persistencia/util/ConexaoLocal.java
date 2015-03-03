@@ -39,7 +39,7 @@ public class ConexaoLocal {
     /**
      * Retorna a instância de ConexaoLocal
      *
-     * @return
+     * @return ConexaoLocal instância única dessa classe
      */
     public static ConexaoLocal getInstance() {
         if (instancia == null) {
@@ -51,7 +51,7 @@ public class ConexaoLocal {
     /**
      * Cria a conexão com o banco a partir do arquivo de propriedades
      *
-     * @return
+     * @return Conexão com o banco de dados, realizada a partir de um arquivo de propriedades
      */
     public Connection createConnection() {
         try {

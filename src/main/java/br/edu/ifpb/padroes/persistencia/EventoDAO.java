@@ -24,7 +24,7 @@ import java.util.List;
  */
 /**
  * Classe de persistência para Eventos, responsável por manter o evento,
- * persistindo, atualizando, excluindo e listando de diversas formas os eventos
+ * persistindo, atualizando, excluindo e listando de diversas formas
  *
  * @author Magdiel Ildefonso
  */
@@ -35,7 +35,7 @@ public class EventoDAO {
     /**
      * Persiste o evento
      *
-     * @param evento evento que será persistido
+     * @param evento 
      * @throws java.sql.SQLException
      */
     public static void persisteEvento(Evento evento) throws SQLException {
@@ -75,7 +75,7 @@ public class EventoDAO {
     /**
      * Atualiza o evento
      *
-     * @param evento
+     * @param evento 
      * @throws java.sql.SQLException
      */
     public static void atualizaEvento(Evento evento) throws SQLException {
@@ -140,7 +140,7 @@ public class EventoDAO {
     /**
      *Busca eventos por id
      * @param id
-     * @return 
+     * @return Evento com o id informado
      * @throws java.sql.SQLException 
      */
     public static Evento buscarEventoPorId(int id) throws SQLException {
@@ -194,7 +194,7 @@ public class EventoDAO {
     /**
      * Listas todos os eventos que não foram cancelados
      *
-     * @return
+     * @return Lista de Eventos cadastrados
      * @throws java.sql.SQLException
      */
     public static List<Evento> buscarEventos() throws SQLException {
@@ -295,7 +295,7 @@ public class EventoDAO {
      *
      * @param sala
      * @param evento
-     * @return
+     * @return boolean informando se a sala já foi alocado para algum evento na data do evento atual
      * @throws java.sql.SQLException
      */
     public static boolean verificaAlocacaoSala(Sala sala, Evento evento) throws SQLException {
@@ -353,7 +353,7 @@ public class EventoDAO {
      * Busca eventos por sala
      *
      * @param sala
-     * @return
+     * @return Listas dos Eventos alocados a sala informada
      * @throws java.sql.SQLException
      */
     public static List<Evento> buscaEventosPorSala(Sala sala) throws SQLException {
@@ -408,7 +408,7 @@ public class EventoDAO {
      * Busca eventos por status Lista todos os eventos com o status informado
      *
      * @param status
-     * @return
+     * @return Lista de eventos com o status informado
      * @throws java.sql.SQLException
      */
     public static List<Evento> buscaEventosPorStatus(StatusEvento status) throws SQLException {
@@ -472,7 +472,7 @@ public class EventoDAO {
      * Busca o evento pelo nome
      *
      * @param nome
-     * @return
+     * @return Evento com o nome informado
      * @throws java.sql.SQLException
      */
     public static Evento buscarEventoPorNome(String nome) throws SQLException {
@@ -526,7 +526,7 @@ public class EventoDAO {
      * Busca o evento pela descrição do mesmo
      *
      * @param descricao
-     * @return
+     * @return Evento com a descrição informada
      * @throws java.sql.SQLException
      */
     public static Evento buscarEventoPorDescricao(String descricao) throws SQLException {
@@ -581,7 +581,7 @@ public class EventoDAO {
      * Busca o evento pela data de realização
      *
      * @param data
-     * @return
+     * @return Evento com a data informada
      * @throws java.sql.SQLException
      */
     public static Evento buscarEventoPorData(Date data) throws SQLException {
@@ -636,7 +636,7 @@ public class EventoDAO {
      * Busca o evento pelo nome do usuário responsável
      *
      * @param nomeUsuario
-     * @return
+     * @return Evento com o responsavel informado
      * @throws java.sql.SQLException
      */
     public static Evento buscarEventoPorUsuario(String nomeUsuario) throws SQLException {

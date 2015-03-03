@@ -128,7 +128,7 @@ public class SalaDAO {
     /**
      *Busca a sala pela sua identificação
      * @param identificacao
-     * @return 
+     * @return Sala com a indentificação informada
      * @throws java.sql.SQLException
      */
     public static Sala buscarSalaPorIdentificacao(String identificacao) throws SQLException {
@@ -181,7 +181,7 @@ public class SalaDAO {
 
     /**
      *Busca todas as salas cadastrdas
-     * @return 
+     * @return Lista das salas cadastradas
      * @throws java.sql.SQLException
      */
     public static List<Sala> buscarSalas() throws SQLException {
@@ -238,7 +238,7 @@ public class SalaDAO {
      *Busca todas as salas que satisfaçam o evento, ou seja não estajam alocadas a outro evento e possuam capacidade 
      *maior ou igual ao número de participantes do evento
      * @param evento
-     * @return 
+     * @return Lista das salas que satisfazem os requisitos do evento
      * @throws java.sql.SQLException 
      */
     public static List<Sala> buscarSalasQueSatisfacamEvento(Evento evento) throws SQLException {
